@@ -17,6 +17,8 @@ BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
+void Code();
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
@@ -26,6 +28,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
+    Code();
 
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -177,4 +180,32 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
+}
+
+void Code() {
+    std::vector<Process> processVector;
+    //memory reserve optional
+    processVector.reserve(7);
+    std::cout << processVector.size() << '\n';
+    //Initializing process 
+    processVector.push_back(Process("p1", 40, 15, 0));
+    processVector.push_back(Process("p2", 30, 25, 25));
+    processVector.push_back(Process("p3", 30, 20, 30));
+    processVector.push_back(Process("p4", 35, 15, 50));
+    processVector.push_back(Process("p5", 5, 15, 100));
+    processVector.push_back(Process("p6", 10, 10, 105));
+    Process idle = Process("p_idle", 999, 99999, 0);
+
+    print(processVector);
+
+    //processVector.erase(processVector.begin()+1);
+
+    int time = 0;
+    while (processVector.size() != 0) {
+        std::cout << "Removing " << processVector.at(processVector.size() - 1).getName() << '\n';
+        processVector.pop_back();
+    }
+
+    //processVector.at(1).setRemainingTime(5);
+
 }
